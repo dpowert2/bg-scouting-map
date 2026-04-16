@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bene Gesserit — Scouting Map</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:           #E2E6ED;
+      --surface:      #FFFFFF;
+      --surface-muted:#F3F4F6;
+      --border:       #E5E8EE;
+      --text-primary: #111827;
+      --text-body:    #374151;
+      --text-muted:   #6B7280;
+      --text-faint:   #9CA3AF;
+      --accent:       #E84B3C;
+      --accent-light: #FEF2F0;
+      --data-blue:    #7B9BB5;
+      --data-coral:   #E84B3C;
+      --data-dark:    #1C1C2C;
+      --data-grey:    #D1D5DB;
+      --success:      #16A34A;
+      --warning:      #D97706;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:    0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg:    0 8px 24px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+      --radius-sm:    8px;
+      --radius-md:    14px;
+      --radius-lg:    20px;
+      --radius-xl:    28px;
+      --radius-pill:  999px;
+      --font:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-body);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px;
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 40px;
+    }
+    .header-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .header-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .header-title span { color: var(--accent); }
+    .header-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 720px;
+    }
+
+    /* Section titles */
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-number {
+      font-size: 64px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      opacity: 0.08;
+    }
+    .section-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 600px;
+    }
+
+    /* Card grid */
+    .card-grid {
+      display: grid;
+      gap: 14px;
+    }
+    .grid-apps {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .grid-infra {
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .card-num {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--text-primary);
+      opacity: 0.06;
+      line-height: 1;
+      position: absolute;
+      top: 16px;
+      right: 20px;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+    .icon-apps {
+      background: var(--surface-muted);
+    }
+    .icon-infra {
+      background: var(--data-dark);
+      color: #fff;
+    }
+    .icon-gap {
+      background: var(--accent-light);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+
+    .card-stages {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      letter-spacing: 0.3px;
+    }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1;
+      gap: 5px;
+      white-space: nowrap;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .badge-green  { background: #ECFDF5; color: #065F46; }
+    .badge-green .badge-dot { background: var(--success); }
+    .badge-amber  { background: #FFFBEB; color: #92400E; }
+    .badge-amber .badge-dot { background: var(--warning); }
+    .badge-red    { background: var(--accent-light); color: var(--accent); }
+    .badge-red .badge-dot { background: var(--accent); }
+    .badge-grey   { background: var(--surface-muted); color: var(--text-muted); }
+    .badge-grey .badge-dot { background: var(--data-grey); }
+    .badge-dark   { background: var(--text-primary); color: #fff; }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-company {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--data-blue);
+    }
+
+    /* Connector line between sections */
+    .connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 12px 0 32px;
+      position: relative;
+    }
+    .connector-line {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--border), var(--data-dark));
+      border-radius: 2px;
+    }
+    .connector-label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg);
+      padding: 0 14px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-faint);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    /* Flow diagram */
+    .flow-strip {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 90px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .flow-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .flow-dot-app {
+      background: var(--surface-muted);
+      color: var(--text-primary);
+    }
+    .flow-dot-infra {
+      background: var(--data-dark);
+      color: #fff;
+    }
+    .flow-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.3;
+      max-width: 80px;
+    }
+    .flow-arrow {
+      flex-shrink: 0;
+      width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--data-grey);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 16px; }
+      .header-title { font-size: 26px; }
+      .section-number { font-size: 48px; }
+      .grid-apps, .grid-infra { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-label">Bene Gesserit · Scouting Map</div>
+      <h1 class="header-title">What We're <span>Looking For</span></h1>
+      <p class="header-sub">Everything required to build the app store for financial agents. Specialist agents deliver the customer experience. Platform infrastructure makes the garden safe.</p>
+    </div>
+
+    <!-- Flow strip -->
+    <div class="flow-strip">
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">💬</div>
+        <div class="flow-label">Customer Intent</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">🔍</div>
+        <div class="flow-label">Research & Signal</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">📊</div>
+        <div class="flow-label">Portfolio & Risk</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">🏗️</div>
+        <div class="flow-label">Structuring</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">💰</div>
+        <div class="flow-label">Tax Optimise</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-infra">🚦</div>
+        <div class="flow-label">Compliance Gate</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">⚡</div>
+        <div class="flow-label">Execution</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">👁️</div>
+        <div class="flow-label">Monitoring</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-dot flow-dot-app">📈</div>
+        <div class="flow-label">Learn & Adapt</div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <span class="badge badge-green"><span class="badge-dot"></span> POC / Strong Candidate</span>
+      <span class="badge badge-amber"><span class="badge-dot"></span> Pattern Signal</span>
+      <span class="badge badge-red"><span class="badge-dot"></span> Market Gap</span>
+      <span class="badge badge-grey"><span class="badge-dot"></span> Likely Internal</span>
+    </div>
+
+    <!-- Section 01 — Specialist Agents -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <div class="section-title-group">
+          <div class="section-label">The Apps</div>
+          <div class="section-title">Specialist Agents</div>
+          <div class="section-desc">Startups building deep domain intelligence. Each maps to one or more stages of the investment process.</div>
+        </div>
+      </div>
+
+      <div class="card-grid grid-apps">
+
+        <div class="card">
+          <div class="card-num">01</div>
+          <div class="card-icon icon-apps">💬</div>
+          <div class="card-title">Personal Financial Agent</div>
+          <div class="card-desc">The front door. Understands the customer's goals, translates intent into action, orchestrates the conversation across specialists.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stages 1, 13, 14</span>
+            <span class="badge badge-amber"><span class="badge-dot"></span> Partial</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">02</div>
+          <div class="card-icon icon-apps">🔍</div>
+          <div class="card-title">Research & Signal Intelligence</div>
+          <div class="card-desc">Alternative data, earnings analysis, sector research, catalyst identification, sentiment analysis, institutional flow tracking.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stages 1, 2, 3</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">03</div>
+          <div class="card-icon icon-apps">📊</div>
+          <div class="card-title">Portfolio Construction & Risk</div>
+          <div class="card-desc">Concentration analysis, factor exposure, correlation modelling, scenario analysis, position sizing, rebalancing triggers.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stages 4, 5, 11</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">04</div>
+          <div class="card-icon icon-apps">🏗️</div>
+          <div class="card-title">Trade Structuring Agent</div>
+          <div class="card-desc">Equity vs options vs pairs vs ETFs. Account selection across taxable, IRA, Roth, 529. Structures the expression of a thesis.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 6</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">05</div>
+          <div class="card-icon icon-apps">💰</div>
+          <div class="card-title">Tax Optimisation Agent</div>
+          <div class="card-desc">Lot-level TLH, gain deferral, asset location, wash sale prevention, Roth conversion analysis. Real-time across all accounts.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 7</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Likely Internal</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">06</div>
+          <div class="card-icon icon-apps">📉</div>
+          <div class="card-title">Options & Derivatives Strategy</div>
+          <div class="card-desc">Covered calls for income, protective puts, spreads, collar strategies, volatility trading. Deep specialist knowledge.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stages 6, 10</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">07</div>
+          <div class="card-icon icon-apps">⚡</div>
+          <div class="card-title">Execution Agent</div>
+          <div class="card-desc">VWAP, TWAP, POV algorithm selection. Dark pool routing, multi-venue smart order routing, slippage minimisation.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 9</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">08</div>
+          <div class="card-icon icon-apps">👁️</div>
+          <div class="card-title">Position Monitoring & Thesis Tracking</div>
+          <div class="card-desc">Continuous monitoring of thesis milestones, stop-loss management, catalyst tracking, earnings surprises, macro regime changes.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 10</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">09</div>
+          <div class="card-icon icon-apps">🗺️</div>
+          <div class="card-title">Financial Planning Agent</div>
+          <div class="card-desc">Goals-based planning, retirement projections, life event modelling, income generation, estate considerations. The long-term guardrail.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 14</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">10</div>
+          <div class="card-icon icon-apps">🧠</div>
+          <div class="card-title">Behavioural Coaching Agent</div>
+          <div class="card-desc">Panic prevention, discipline enforcement, drawdown perspective, portfolio-consistent decision support. Stops you selling at the bottom.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 13</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">11</div>
+          <div class="card-icon icon-apps">📈</div>
+          <div class="card-title">Post-Trade Analysis & Learning</div>
+          <div class="card-desc">Trade journaling, attribution analysis, pattern recognition across closed positions, strategy refinement. The feedback loop.</div>
+          <div class="card-footer">
+            <span class="card-stages">Stage 12</span>
+            <span class="badge badge-grey"><span class="badge-dot"></span> Scouting</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div class="connector">
+      <div class="connector-line"></div>
+      <div class="connector-label">Agents operate inside the garden ↓</div>
+    </div>
+
+    <!-- Section 02 — Platform Infrastructure -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <div class="section-title-group">
+          <div class="section-label">The Garden</div>
+          <div class="section-title">Platform Infrastructure</div>
+          <div class="section-desc">The technology that makes the agent marketplace safe, compliant, and trustworthy. Without this, there is no app store.</div>
+        </div>
+      </div>
+
+      <div class="card-grid grid-infra">
+
+        <div class="card">
+          <div class="card-num">01</div>
+          <div class="card-icon icon-infra">🔀</div>
+          <div class="card-title">Agent Orchestration</div>
+          <div class="card-desc">Routes conversations between agents, manages workflows, enforces execution order. The nervous system of the garden.</div>
+          <div class="card-footer">
+            <span class="card-company">Jentic · Dublin · BG 95</span>
+            <span class="badge badge-green"><span class="badge-dot"></span> POC Partner</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">02</div>
+          <div class="card-icon icon-infra">🛡️</div>
+          <div class="card-title">AI Safety & Guardrails</div>
+          <div class="card-desc">Supervises agent behaviour, prevents hallucination, enforces boundaries. The referee that keeps every agent in line.</div>
+          <div class="card-footer">
+            <span class="card-company">Overmind · London · BG 100</span>
+            <span class="badge badge-green"><span class="badge-dot"></span> Strong Candidate</span>
+          </div>
+        </div>
+
+        <div class="card" style="outline: 2px solid var(--accent); outline-offset: -2px;">
+          <div class="card-num" style="color: var(--accent); opacity: 0.15;">03</div>
+          <div class="card-icon icon-gap">🚦</div>
+          <div class="card-title">Pre-Trade Compliance</div>
+          <div class="card-desc">The gate. Checks suitability, concentration limits, restricted lists, best execution before any trade executes. <strong style="color: var(--accent);">Nobody is building this.</strong></div>
+          <div class="card-footer">
+            <span class="card-company" style="color: var(--accent);">Hadrius closest signal</span>
+            <span class="badge badge-red"><span class="badge-dot"></span> Market Gap</span>
+          </div>
+        </div>
+
+        <div class="card" style="outline: 2px solid var(--accent); outline-offset: -2px;">
+          <div class="card-num" style="color: var(--accent); opacity: 0.15;">04</div>
+          <div class="card-icon icon-gap">🔑</div>
+          <div class="card-title">Agent Authentication & Identity</div>
+          <div class="card-desc">Know Your Agent. Every agent must be certified, permissioned, and accountable. <strong style="color: var(--accent);">No finserv startup exists.</strong> The app store's admission system.</div>
+          <div class="card-footer">
+            <span class="card-company" style="color: var(--accent);">IETF standard in draft</span>
+            <span class="badge badge-red"><span class="badge-dot"></span> Market Gap</span>
+          </div>
+        </div>
+
+        <div class="card" style="outline: 2px solid var(--accent); outline-offset: -2px;">
+          <div class="card-num" style="color: var(--accent); opacity: 0.15;">05</div>
+          <div class="card-icon icon-gap">📋</div>
+          <div class="card-title">Audit & Explainability</div>
+          <div class="card-desc">"Why did the agent do this?" — auditable, regulator-ready explanation for every decision. <strong style="color: var(--accent);">No purpose-built startup.</strong></div>
+          <div class="card-footer">
+            <span class="card-company" style="color: var(--accent);">ValidMind closest</span>
+            <span class="badge badge-red"><span class="badge-dot"></span> Market Gap</span>
+          </div>
+        </div>
+
+        <div class="card" style="outline: 2px solid var(--accent); outline-offset: -2px;">
+          <div class="card-num" style="color: var(--accent); opacity: 0.15;">06</div>
+          <div class="card-icon icon-gap">⚖️</div>
+          <div class="card-title">Dispute Resolution & Liability</div>
+          <div class="card-desc">When an agent trade goes wrong, who pays? Insurance, certification, accountability frameworks. <strong style="color: var(--accent);">Completely unsolved.</strong></div>
+          <div class="card-footer">
+            <span class="card-company" style="color: var(--accent);">Armilla / AIUC embryonic</span>
+            <span class="badge badge-red"><span class="badge-dot"></span> Market Gap</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-num">07</div>
+          <div class="card-icon icon-infra">💳</div>
+          <div class="card-title">Agent Monetisation</div>
+          <div class="card-desc">Results-based billing for agent-mediated services. How does each specialist agent in the marketplace get paid?</div>
+          <div class="card-footer">
+            <span class="card-company">Paid AI · London · BG 53</span>
+            <span class="badge badge-amber"><span class="badge-dot"></span> Pattern Signal</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Summary bar -->
+    <div style="background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 28px 32px; display: flex; gap: 0; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 140px; padding: 0 24px; border-right: 1px solid var(--border); text-align: center;">
+        <div style="font-size: 36px; font-weight: 800; color: var(--text-primary); line-height: 1;">18</div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">Total Categories</div>
+      </div>
+      <div style="flex: 1; min-width: 140px; padding: 0 24px; border-right: 1px solid var(--border); text-align: center;">
+        <div style="font-size: 36px; font-weight: 800; color: var(--success); line-height: 1;">2</div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">POC / Candidate</div>
+      </div>
+      <div style="flex: 1; min-width: 140px; padding: 0 24px; border-right: 1px solid var(--border); text-align: center;">
+        <div style="font-size: 36px; font-weight: 800; color: var(--warning); line-height: 1;">2</div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">Pattern Signals</div>
+      </div>
+      <div style="flex: 1; min-width: 140px; padding: 0 24px; text-align: center;">
+        <div style="font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">4</div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">Market Gaps</div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
