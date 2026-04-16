@@ -23,6 +23,8 @@
       --data-grey:    #D1D5DB;
       --success:      #16A34A;
       --warning:      #D97706;
+      --research:     #7C3AED;
+      --research-light:#F5F3FF;
       --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md:    0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
       --shadow-lg:    0 8px 24px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
@@ -178,6 +180,9 @@
     .icon-gap {
       background: var(--accent-light);
     }
+    .icon-research {
+      background: var(--research-light);
+    }
 
     .card-title {
       font-size: 15px;
@@ -229,6 +234,8 @@
     .badge-grey   { background: var(--surface-muted); color: var(--text-muted); }
     .badge-grey .badge-dot { background: var(--data-grey); }
     .badge-dark   { background: var(--text-primary); color: #fff; }
+    .badge-purple { background: var(--research-light); color: var(--research); }
+    .badge-purple .badge-dot { background: var(--research); }
 
     .card-footer {
       display: flex;
@@ -352,7 +359,7 @@
     <div class="header">
       <div class="header-label">Bene Gesserit · Scouting Map</div>
       <h1 class="header-title">What We're <span>Looking For</span></h1>
-      <p class="header-sub">Everything required to build the app store for financial agents. Specialist agents deliver the customer experience. Platform infrastructure makes the garden safe.</p>
+      <p class="header-sub">Everything required to build the app store for financial agents. Specialist agents deliver the customer experience. Platform infrastructure makes the garden safe. Research vectors expand the investable universe.</p>
     </div>
 
     <!-- Flow strip -->
@@ -408,6 +415,7 @@
       <span class="badge badge-green"><span class="badge-dot"></span> POC / Strong Candidate</span>
       <span class="badge badge-amber"><span class="badge-dot"></span> Pattern Signal</span>
       <span class="badge badge-red"><span class="badge-dot"></span> Market Gap</span>
+      <span class="badge badge-purple"><span class="badge-dot"></span> New Search Vector</span>
       <span class="badge badge-grey"><span class="badge-dot"></span> Likely Internal</span>
     </div>
 
@@ -644,26 +652,52 @@
           </div>
         </div>
 
+        <div class="card" style="outline: 2px solid var(--research); outline-offset: -2px;">
+          <div class="card-num" style="color: var(--research); opacity: 0.15;">08</div>
+          <div class="card-icon icon-research">🔄</div>
+          <div class="card-title">Product Inversion & Access</div>
+          <div class="card-desc">Reimagining existing financial products — options, derivatives, structured products — to widen retail access. Prediction-market mechanics applied to traditional finance. <strong style="color: var(--research);">Democratisation of institutional-grade instruments.</strong></div>
+          <div class="card-footer">
+            <span class="card-company" style="color: var(--research);">Kalshi · Polymarket · eToro signals</span>
+            <span class="badge badge-purple"><span class="badge-dot"></span> New Search Vector</span>
+          </div>
+        </div>
+
+        <div class="card" style="outline: 2px solid var(--research); outline-offset: -2px;">
+          <div class="card-num" style="color: var(--research); opacity: 0.15;">09</div>
+          <div class="card-icon icon-research">🧩</div>
+          <div class="card-title">Tokenization & Fractionalization</div>
+          <div class="card-desc">Compliant infrastructure for tokenizing previously illiquid assets — real estate, private equity, collectibles, IP rights. Full-stack coverage from issuance to custody to secondary market. <strong style="color: var(--research);">Rights-model clarity is the differentiator.</strong></div>
+          <div class="card-footer">
+            <span class="card-company" style="color: var(--research);">Securitize · Republic · Rally signals</span>
+            <span class="badge badge-purple"><span class="badge-dot"></span> New Search Vector</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- Summary bar -->
     <div style="background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 28px 32px; display: flex; gap: 0; flex-wrap: wrap;">
-      <div style="flex: 1; min-width: 140px; padding: 0 24px; border-right: 1px solid var(--border); text-align: center;">
-        <div style="font-size: 36px; font-weight: 800; color: var(--text-primary); line-height: 1;">18</div>
+      <div style="flex: 1; min-width: 120px; padding: 0 20px; border-right: 1px solid var(--border); text-align: center;">
+        <div style="font-size: 36px; font-weight: 800; color: var(--text-primary); line-height: 1;">20</div>
         <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">Total Categories</div>
       </div>
-      <div style="flex: 1; min-width: 140px; padding: 0 24px; border-right: 1px solid var(--border); text-align: center;">
+      <div style="flex: 1; min-width: 120px; padding: 0 20px; border-right: 1px solid var(--border); text-align: center;">
         <div style="font-size: 36px; font-weight: 800; color: var(--success); line-height: 1;">2</div>
         <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">POC / Candidate</div>
       </div>
-      <div style="flex: 1; min-width: 140px; padding: 0 24px; border-right: 1px solid var(--border); text-align: center;">
+      <div style="flex: 1; min-width: 120px; padding: 0 20px; border-right: 1px solid var(--border); text-align: center;">
         <div style="font-size: 36px; font-weight: 800; color: var(--warning); line-height: 1;">2</div>
         <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">Pattern Signals</div>
       </div>
-      <div style="flex: 1; min-width: 140px; padding: 0 24px; text-align: center;">
+      <div style="flex: 1; min-width: 120px; padding: 0 20px; border-right: 1px solid var(--border); text-align: center;">
         <div style="font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">4</div>
         <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">Market Gaps</div>
+      </div>
+      <div style="flex: 1; min-width: 120px; padding: 0 20px; text-align: center;">
+        <div style="font-size: 36px; font-weight: 800; color: var(--research); line-height: 1;">2</div>
+        <div style="font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 6px;">New Vectors</div>
       </div>
     </div>
 
